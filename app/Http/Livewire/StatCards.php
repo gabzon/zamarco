@@ -79,8 +79,6 @@ class StatCards extends Component
         $this->eurTodayTotal = $this->eurTodayIn - $this->eurTodayOut;  
     }
 
-    
-
     public function render()
     {
         return view('livewire.stat-cards');

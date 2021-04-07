@@ -82,11 +82,11 @@ class User extends Authenticatable
 
     public function isManager()
     {
-        return $this->role == 'manager';
+        return $this->role == 'gerente';
     }
 
     public function isEditor()
     {
-        return $this->role == 'editor';
+        return $this->role == 'supervisor';
     }
 }

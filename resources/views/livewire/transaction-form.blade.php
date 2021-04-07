@@ -4,7 +4,8 @@
             <div class="px-4 sm:px-0">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">Agregar transaccion</h3>
                 <p class="mt-1 text-sm text-gray-600">
-                    Use a permanent address where you can receive mail.
+                    Utilice este formulario para agregar todas las informaciones necesarias con respecto a las
+                    transacciones de la empresa
                 </p>
             </div>
         </div>
@@ -12,15 +13,16 @@
             <form wire:submit.prevent="{{ $action == 'add' ? 'add' : 'edit'}}">
                 <div class="shadow overflow-hidden sm:rounded-md">
                     <div class="px-4 py-5 bg-white sm:p-6">
-                        <div class="grid grid-cols-6 gap-6">
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">
+
+                        <div class="grid grid-cols-5 gap-6">
+                            <div class="col-span-5 sm:col-span-2">
+                                <label for="type" class="block text-sm font-medium text-gray-700 mb-1">
                                     Tipo de transaccion
                                 </label>
                                 <fieldset>
                                     <div class="rounded-lg bg-white sm:grid sm:grid-cols-2 -space-x-py">
                                         <div
-                                            class="relative flex border border-gray-100 p-2 rounded-l-md {{ $type == 'in' ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-20' }} @error('type') border-red-600 bg-red-100 @enderror">
+                                            class="relative flex border border-gray-100 p-2 rounded-l-md {{ $type == 'in' ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-200' }} @error('type') border-red-600 bg-red-100 @enderror">
                                             <div class="flex items-center h-5">
                                                 <input wire:model="type" type="radio" value="in"
                                                     class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
@@ -53,8 +55,11 @@
                                     @enderror
                                 </fieldset>
                             </div>
+                        </div>
 
-                            <div class="col-span-6 sm:col-span-3">
+                        <div class="grid grid-cols-6 gap-6 mt-6">
+
+                            <div class="col-span-6 sm:col-span-2">
                                 <label for="date" class="block text-sm font-medium text-gray-700">Fecha</label>
                                 <input type="date" wire:model="date"
                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('date') border-red-600 @enderror">
@@ -76,20 +81,6 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                                <label for="exchange" class="block text-sm font-medium text-gray-700">
-                                    Cambio
-                                </label>
-
-                                <input type="number" wire:model="exchange" step=".01"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('exchange') border-red-600 @enderror">
-                                {{-- <p class="text-xs text-gray-400 mt-2">DolarToday de hoy {{ $dolarToday ?? '' }}</p>
-                                --}}
-                                @error('exchange')
-                                <span class="text-sm text-red-600"> {{$message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                 <label for="currency" class="block text-sm font-medium text-gray-700">
                                     Devisa
                                 </label>
@@ -106,13 +97,66 @@
                                 @enderror
                             </div>
 
+                            <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                                <label for="exchange"
+                                    class="block text-sm font-medium text-gray-700 inline-flex items-center">
+                                    Cambio
+                                    <a href="http://www.bcv.org.ve/bcv/coleccion-electronica"
+                                        class="hover:text-indigo-600 underline mx-1" target="_blank">BCV
+                                    </a>
+                                    or
+                                    <a href="https://dolartoday.com" class="hover:text-indigo-600 underline mx-1"
+                                        target="_blank" rel="noopener noreferrer">
+                                        DolarToday
+                                    </a>
+                                </label>
+
+                                <input type="number" wire:model="exchange" step=".01"
+                                    class="focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('exchange') border-red-600 @enderror">
+                                <p class="text-xs text-gray-400 mt-2 inline-flex items-center">
+                                    @if ($dolarToday)
+                                    <button wire:click.prevent="addUSD"
+                                        class="text-indigo-700 font-semibold hover:underline mx-1">$
+                                        {{ $dolarToday ?? '' }}</button>
+                                    <span class="mx-1">|</span>
+                                    @endif
+                                    @if ($euroToday)
+                                    <button wire:click.prevent="addEUR"
+                                        class="text-indigo-700 font-semibold hover:underline mx-1">€
+                                        {{ $euroToday ?? '' }}</button>
+                                    @endif
+                                </p>
+                                @error('exchange')
+                                <span class="text-sm text-red-600"> {{$message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                                <label for="bolivares" class="block text-sm font-medium text-gray-700">
+                                    Bolivares al cambio
+                                </label>
+                                <input type="number" wire:model="vefExchange" step=".01" disabled
+                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-50">
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                                <label for="bolivares" class="block text-sm font-medium text-gray-700">
+                                    Bolivares facturados
+                                </label>
+                                <input type="number" wire:model="bolivares" step=".01"
+                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+
 
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="invoice" class="block text-sm font-medium text-gray-700">
-                                    Numbero de la factura/Nota de entrega
+                                    N° Factura / Nota de entrega / N° de Referencia
                                 </label>
                                 <input type="text" wire:model="invoice"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('invoice') border-red-600 @enderror">
+                                @error('invoice')
+                                <span class="text-sm text-red-600"> {{$message }}</span>
+                                @enderror
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
@@ -135,11 +179,14 @@
                                 </label>
                                 <div class="mt-1">
                                     <textarea wire:model="description" rows="3"
-                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md @error('description') border-red-600 @enderror"></textarea>
                                 </div>
                                 <p class="mt-1 text-sm text-gray-500">
                                     Breve descripcion de la transaccion
                                 </p>
+                                @error('description')
+                                <span class="text-sm text-red-600"> {{$message }}</span>
+                                @enderror
                             </div>
 
                             <div class="col-span-6">
@@ -187,22 +234,75 @@
                             @isset($clientType)
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="contact" class="block text-sm font-medium text-gray-700">
-                                    {{ $clientType == 'person' ? 'Nombre del client': 'Nombre de la empresa' }}
+                                    {{ $clientType == 'person' ? 'Nombre del cliente': 'Nombre de la empresa' }}
                                 </label>
                                 <input type="text" wire:model="contact"
                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="client_id" class="block text-sm font-medium text-gray-700">
+                                <label for="contact_id" class="block text-sm font-medium text-gray-700">
                                     {{ $clientType == 'person' ? 'ID del cliente': 'RIF' }}
                                 </label>
-                                <input type="text" wire:model="client_id"
+                                <input type="text" wire:model="contact_id"
                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>
                             @endisset
+                        </div>
+                        <div class="grid grid-cols-5 gap-6 mt-6">
+                            <div class="col-span-5 sm:col-span-2">
+                                <label for="source" class="block text-sm font-medium text-gray-700 mb-1">
+                                    Origen/Destino
+                                </label>
+                                <fieldset>
+                                    <div class="rounded-lg bg-white sm:grid sm:grid-cols-2 -space-x-py">
+                                        <div
+                                            class="relative flex border border-gray-100 p-2 rounded-l-md {{ $source == 'cash' ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-200' }} @error('source') border-red-600 bg-red-100 @enderror">
+                                            <div class="flex items-center h-5">
+                                                <input wire:model="source" type="radio" value="cash"
+                                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                                            </div>
+                                            <label for="settings-option-0" class="ml-3 flex flex-col cursor-pointer">
+                                                <span
+                                                    class="block text-sm font-medium {{ $source == 'cash' ? 'text-indigo-900' : 'text-gray-900' }}">
+                                                    Caja
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div
+                                            class="relative flex border border-gray-100 p-2 rounded-r-md {{ $source == 'bank' ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-200' }} @error('source') border-red-600 bg-red-100 @enderror">
+                                            <div class="flex items-center h-5">
+                                                <input wire:model="source" type="radio" value="bank"
+                                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300 ">
+                                            </div>
+                                            <label for="settings-option-1" class="ml-3 flex flex-col cursor-pointer">
+                                                <span
+                                                    class="text-sm font-medium {{ $source == 'cash' ? 'text-gray-900' : 'text-indigo-900' }}">
+                                                    Banco
+                                                </span>
 
+                                            </label>
+                                        </div>
+                                    </div>
+                                    @error('source')
+                                    <span class="text-sm text-red-600"> {{$message }}</span>
+                                    @enderror
+                                </fieldset>
+                            </div>
 
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="destinatary" class="block text-sm font-medium text-gray-700">
+                                    {{ $type == 'in' ? 'Accionista': 'Destinatario' }}
+                                </label>
+                                <input type="text" wire:model="destinatary" @if ($type=='in' ) list="socios" @endif
+                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <datalist id="socios">
+                                    <option value="Juan Zambrano">
+                                    <option value="Reinaldo Martinez">
+                                    <option value="Tomas Antonio Rodriguez">
+                                    <option value="Welmer Contreras">
+                                </datalist>
+                            </div>
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">

@@ -20,6 +20,50 @@
         </div>
     </x-slot>
 
+
+    {{-- <div class="pt-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="grid grid-cols-4 gap-6">
+                <div class="col-span-6 sm:col-span-1">
+                    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+                        <dt class="text-sm font-medium text-gray-500 truncate">
+                            Total en dolares
+                        </dt>
+                        <dd class="mt-1 text-3xl font-semibold text-indigo-600">
+                            $
+                            {{ number_format(\App\Models\Transaction::getTotalAmount('usd','in') - \App\Models\Transaction::getTotalAmount('usd','out'), 2, '.', '\'') }}
+    </dd>
+    </div>
+    <br>
+    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+        <dt class="text-sm font-medium text-gray-500 truncate">
+            Total en euros
+        </dt>
+        <dd class="mt-1 text-3xl font-semibold text-indigo-600">
+            €
+            {{ number_format(\App\Models\Transaction::getTotalAmount('eur','in') - \App\Models\Transaction::getTotalAmount('eur','out'), 2, '.', '\'') }}
+        </dd>
+    </div>
+    </div>
+    <div class="col-span-6 sm:col-span-3">
+        <div id="chart" style="height: 300px;"></div>
+    </div>
+    </div>
+    </div>
+    </div> --}}
+
+
+    {{-- <div class="pb-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 overflow-scroll">
+            <pre>
+                @foreach ($yes as $item )
+                    {{ $item }}
+    @endforeach
+    </pre>
+    </div>
+    </div> --}}
+
+
     @if (auth()->user()->isAdmin())
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -35,5 +79,16 @@
         </div>
     </div>
     @endif
+
+    @push('modals')
+    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
+    <script>
+        const chart = new Chartisan({
+          el: '#chart',
+          url: "@chart('sample_chart')",
+        });
+    </script>
+    @endpush
 
 </x-app-layout>

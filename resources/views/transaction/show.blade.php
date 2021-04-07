@@ -81,15 +81,15 @@
                                 Servicio/Factura
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900">
-                                {{ $transaction->service }}
+                                {{ $transaction->invoice }}
                             </dd>
                         </div>
                         <div class="sm:col-span-1">
                             <dt class="text-sm font-medium text-gray-500">
-                                Cedula
+                                Origin/Destino
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900">
-                                {{ $transaction->cedula }}
+                                {{ $transaction->source }}
                             </dd>
                         </div>
                         <div class="sm:col-span-1">
@@ -118,18 +118,26 @@
                         </div>
                         <div class="sm:col-span-1">
                             <dt class="text-sm font-medium text-gray-500">
-                                Factura
+                                Bolivares al cambio
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900">
-                                {{ $transaction->invoice }}
+                                {{ $transaction->amount * $transaction->exchange }} BsF
                             </dd>
                         </div>
                         <div class="sm:col-span-1">
                             <dt class="text-sm font-medium text-gray-500">
-                                Monto en bolivares
+                                Bolivares recibidos
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900">
-                                {{ $transaction->amount * $transaction->exchange }} BsF
+                                {{ $transaction->bolivares }} BsF
+                            </dd>
+                        </div>
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font-medium text-gray-500">
+                                Destinatario
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                {{ $transaction->destinatary }}
                             </dd>
                         </div>
                         <div class="sm:col-span-2">

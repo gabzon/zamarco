@@ -17,11 +17,6 @@
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Servicio
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Descripcion
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -29,7 +24,20 @@
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Servicio
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Descripcion
+                                    </th>
+
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Empresa
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Autor
                                     </th>
                                     <th scope="col" class="relative px-6 py-3">
                                         <span class="sr-only">Edit</span>
@@ -46,23 +54,24 @@
                                         {{ \Carbon\Carbon::parse($t->date)->format('d-m-Y') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ $t->service }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ $t->description }}
+                                        @if ($t->source == 'bank')
+                                        @include('icons.bank')
+                                        @else
+                                        @include('icons.caja')
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         @if ($t->type == 'in')
                                         <div class="text-green-600 inline-flex">
-                                            @include('icons.in')
-                                            <span class="ml-2">
+                                            @include('icons.up-arrow')
+                                            <span class="">
                                                 {{ $t->currencySymbol }} {{ number_format($t->amount,2) }}
                                             </span>
                                         </div>
                                         @else
                                         <div class="text-red-600 inline-flex">
-                                            @include('icons.out')
-                                            <span class="ml-2">
+                                            @include('icons.down-arrow')
+                                            <span class="">
                                                 {{ $t->currencySymbol }}
                                                 {{ number_format($t->amount,2) }}
                                             </span>
@@ -71,7 +80,16 @@
 
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $t->invoice }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $t->description }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $t->company->name }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $t->author->name }}
                                     </td>
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium inline-flex items-center">

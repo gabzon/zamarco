@@ -18,9 +18,11 @@
             class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             <option selected default disabled>Seleccionar rol</option>
             <option value="admin" @isset($user) {{ $user->role == "admin" ? 'selected': '' }} @endisset>Admin</option>
-            <option value="manager" @isset($user) {{ $user->role == "manager" ? 'selected': '' }} @endisset>Manager
+            <option value="gerente" @isset($user) {{ $user->role == "gerente" ? 'selected': '' }} @endisset>
+                Gerente
             </option>
-            <option value="editor" @isset($user) {{ $user->role == "editor" ? 'selected': '' }} @endisset>Editor
+            <option value="supervisor" @isset($user) {{ $user->role == "supervisor" ? 'selected': '' }} @endisset>
+                Supervisor
             </option>
         </select>
     </div>

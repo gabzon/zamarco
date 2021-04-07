@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
         $criseila = User::firstOrCreate([
             'name'          => 'Criseila Gomez Zambrano',
             'email'         => 'zambrano.criseila@gmail.com',
-            'role'          => 'manager',
+            'role'          => 'gerente',
             'password'      => Hash::make('password'),
             'email_verified_at' => now(),
         ]);
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
         $maria = User::firstOrCreate([
             'name'          => 'Maria Gomez',
             'email'         => 'maria@gmail.com',
-            'role'          => 'editor',
+            'role'          => 'supervisor',
             'password'      => Hash::make('password'),
             'email_verified_at' => now(),
         ]);

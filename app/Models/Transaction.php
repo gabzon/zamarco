@@ -1,5 +1,5 @@
 <?php
-
+// https://laracasts.com/discuss/channels/laravel/laravel-sum-month 
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -18,13 +18,15 @@ class Transaction extends Model
         'amount',
         'exchange',
         'currency',
+        'bolivares',
         'invoice',
         'contact',
         'type',
+        'source',
+        'destinatary',
         'user_id',
-        'company_id',        
-    ];    
-    
+        'company_id',
+    ];
 
     public function getCurrencySymbolAttribute()
     {
@@ -76,7 +78,7 @@ class Transaction extends Model
     {
         if (!empty($days)) {
             return $query->whereDate('date', '>=', Carbon::now()->subDays($days));
-        }        
+        }
         return $query;
     }
 
@@ -112,8 +114,18 @@ class Transaction extends Model
         return $query;
     }
 
-    public static function getTotalAmount($currency = null, $type = null, $company = null, $days = null){
+    public static function getTotalAmount($currency = null, $type = null, $company = null, $days = null)
+    {
         return Transaction::currency($currency)->byType($type)->byCompany($company)->lastDays($days)->sum('amount');
     }
 
+    public static function getTransactions($year, $month, $currency, $type)
+    {
+        return Transaction::whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->currency($currency)
+            ->type($type)
+            ->sum('amount');
+    }
 }
+

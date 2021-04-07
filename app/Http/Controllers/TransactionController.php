@@ -6,6 +6,7 @@ use App\Imports\TransactionImport;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Http;
 
 class TransactionController extends Controller
 {
@@ -26,7 +27,12 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return view('transaction.create');
+        $response = Http::get('https://s3.amazonaws.com/dolartoday/data.json',[
+            'USD' => 'promedio_real',
+            'EUR' => 'promedio_real',
+        ]);    
+        
+        return view('transaction.create')->with('response', $response->json());
     }
 
     /**
@@ -58,7 +64,7 @@ class TransactionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Transaction $transaction)
-    {
+    {        
         return view('transaction.edit')->with('transaction', $transaction);
     }
 
@@ -95,7 +101,6 @@ class TransactionController extends Controller
         // dd(request()->all());
         Excel::import(new TransactionImport, $request->file);
         
-        // return redirect('/')->with('success', 'All good!');
-        return "import success";
+        return redirect('dashboard')->with('success', 'Import successful');        
     }
 }

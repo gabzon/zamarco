@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace App\Charts;
 
+use App\Models\Transaction;
+use Carbon\Carbon;
 use Chartisan\PHP\Chartisan;
 use ConsoleTVs\Charts\BaseChart;
 use Illuminate\Http\Request;
@@ -17,9 +19,45 @@ class SampleChart extends BaseChart
      */
     public function handler(Request $request): Chartisan
     {
+        $today = Carbon::now();
+        
+        $monthToday = $today->subMonth()->format('M');
+        
+        // $usdToday = Transaction::whereYear('date', $today->year)->whereMonth('date', $today->month)->currency('usd')->type('in')->sum('amount');
+        // dd($usdToday);
+        $month11 = $today->subMonth(1)->format('M');
+        $month10 = $today->subMonth(1)->format('M');
+        $month9 = $today->subMonth(1)->format('M');
+        $month8 = $today->subMonth(1)->format('M');
+        $month7 = $today->subMonth(1)->format('M');
+        $month6 = $today->subMonth(1)->format('M');
+        $month5 = $today->subMonth(1)->format('M'); 
+        $month4 = $today->subMonth(1)->format('M');
+        $month3 = $today->subMonth(1)->format('M');
+        $month2 = $today->subMonth(1)->format('M');
+        $month1 = $today->subMonth(1)->format('M');
+
+        
+
         return Chartisan::build()
-            ->labels(['First', 'Second', 'Third'])
-            ->dataset('Sample', [1, 2, 3])
-            ->dataset('Sample 2', [3, 2, 1]);
+            ->labels([
+                $month1, 
+                $month2, 
+                $month3, 
+                $month4, 
+                $month5, 
+                $month6, 
+                $month7, 
+                $month8, 
+                $month9, 
+                $month10,
+                $month11, 
+                $monthToday, 
+                ])
+            ->dataset('USD', [1, 2, 3, 4])
+            ->dataset('EUR', [1, 2, 2]);
     }
 }
+
+
+
