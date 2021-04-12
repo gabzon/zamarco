@@ -32,11 +32,20 @@ Route::get('/test', function () {
     // $query = Transaction::groupBy('currency')->get();
 
     $query = DB::table('transactions')->select(
+        DB::raw('YEAR(date) AS year'),
         DB::raw('MONTH(date) AS month'),
-        DB::raw('SUM(amount) AS total'),
-    )->groupBy('type')->orderBy('type')->get();
+        DB::raw('(CASE WHEN type = "in" THEN SUM(amount) END) AS total_in'),
+    DB::raw('type')        
+    )->groupBy('date')->groupBy('type')->where('currency','eur')->get();
 
-    // return Carbon::parse($date->created_at)->format('Y');
+    $query2 = DB::table('transactions')->select(
+        DB::raw('YEAR(date) AS year'),
+        DB::raw('MONTH(date) AS month'),
+        DB::raw('SUM(amount) AS total_out'),
+    )->groupBy('date')->where('currency','eur')->where('type','out')->get();
+
+    $q = $query->merge($query2);
+    
     dd($query);
 });
 

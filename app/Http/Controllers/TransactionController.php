@@ -27,12 +27,13 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $response = Http::get('https://s3.amazonaws.com/dolartoday/data.json',[
-            'USD' => 'promedio_real',
-            'EUR' => 'promedio_real',
-        ]);    
-        
-        return view('transaction.create')->with('response', $response->json());
+        // $response = Http::get('https://s3.amazonaws.com/dolartoday/data.json',[
+        //     'USD' => 'promedio_real',
+        //     'EUR' => 'promedio_real',
+        // ]);    
+        $response = file_get_contents('https://s3.amazonaws.com/dolartoday/data.json');
+        $json = json_decode($response, true);        
+        return view('transaction.create')->with('response', $json);
     }
 
     /**

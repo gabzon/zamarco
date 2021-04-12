@@ -128,9 +128,9 @@ class TransactionForm extends Component
     {
         $this->action = $action;            
         
-        if ($response) {           
-            $this->dolarToday = $response->json()['USD']['promedio_real'];
-            $this->euroToday = $response->json()['EUR']['promedio_real'];            
+        if ($response) {                       
+            $this->dolarToday = $response['USD']['promedio_real'];
+            $this->euroToday = $response['EUR']['promedio_real'];            
         }
         
         if ($action == 'edit') {
