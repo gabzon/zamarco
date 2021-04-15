@@ -177,10 +177,24 @@
                     {{ __('Profile') }}
                 </x-jet-responsive-nav-link>
 
+
+                @if (auth()->user()->isAdmin())
+                <x-jet-responsive-nav-link href="{{ route('user.index') }}" :active="request()->routeIs('user.index')">
+                    {{ __('Usuarios') }}
+                </x-jet-responsive-nav-link>
+
+                <x-jet-responsive-nav-link href="{{ route('company.index') }}"
+                    :active="request()->routeIs('company.index')">
+                    {{ __('Empresas') }}
+                </x-jet-responsive-nav-link>
+                @endif
+
+                @if (auth()->user()->isAdmin() || auth()->user()->isManager())
                 <x-jet-responsive-nav-link href="{{ route('transaction.import') }}"
-                    :active="request()->routeIs('profile.show')">
+                    :active="request()->routeIs('transaction.import')">
                     {{ __('Import') }}
                 </x-jet-responsive-nav-link>
+                @endif
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                 <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}"
