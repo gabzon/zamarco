@@ -124,9 +124,17 @@ class TransactionForm extends Component
         return redirect(route('transaction.index'));
     }
 
-    public function mount($transaction = null, $action = 'add', $response = null)
+    public function getExchange()
+    {
+        $response = file_get_contents('https://s3.amazonaws.com/dolartoday/data.json');
+        return json_decode($response, true);
+    }
+
+    public function mount($transaction = null, $action = 'add')
     {
         $this->action = $action;            
+        
+        $response = $this->getExchange();
         
         if ($response) {                       
             $this->dolarToday = $response['USD']['promedio_real'];

@@ -196,7 +196,7 @@
                                 <fieldset>
                                     <div class="rounded-lg bg-white sm:grid sm:grid-cols-2 -space-x-py">
                                         <div
-                                            class="relative flex border border-gray-100 p-2 rounded-l-md {{ $clientType == 'person' ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-20' }} @error('clientType') border-red-600 bg-red-100 @enderror">
+                                            class="relative flex border border-gray-100 p-2 rounded-l-md {{ $clientType == 'person' ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-200' }} @error('clientType') border-red-600 bg-red-100 @enderror">
                                             <div class="flex items-center h-5">
                                                 <input wire:model="clientType" type="radio" value="person"
                                                     class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
@@ -291,21 +291,24 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
+                                @if ($type == 'in' & $source == 'bank')
                                 <label for="destinatary" class="block text-sm font-medium text-gray-700">
-                                    {{ $type == 'in' ? 'Accionista': 'Destinatario' }}
+                                    Destinatario/Receptor
                                 </label>
                                 <input type="text" wire:model="destinatary" @if ($type=='in' ) list="socios" @endif
                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 <datalist id="socios">
                                     <option value="Juan Zambrano">
                                     <option value="Reinaldo Martinez">
-                                    <option value="Tomas Antonio Rodriguez">
-                                    <option value="Welmer Contreras">
                                 </datalist>
+                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <a href="{{ url()->previous() }}" class="hover:text-indigo-700">
+                            Cancelar
+                        </a>
                         <x-jet-button class="ml-4">
                             {{ __('Guardar') }}
                         </x-jet-button>

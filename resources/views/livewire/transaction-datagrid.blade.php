@@ -9,18 +9,14 @@
                                 <tr>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        ID
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Fecha
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Monto
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Monto
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -48,10 +44,29 @@
                                 @forelse ($transactions as $t)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ $t->id }}
+                                        {{ \Carbon\Carbon::parse($t->date)->format('d-m-Y') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ \Carbon\Carbon::parse($t->date)->format('d-m-Y') }}
+                                        <a href="{{ route('transaction.show', $t) }}">
+                                            @if ($t->type == 'in')
+                                            <div
+                                                class="text-green-700 font-semibold inline-flex hover:text-green-500 hover:underline">
+                                                @include('icons.up-arrow', ['style' => 'h-5 w-5'])
+                                                <span class="">
+                                                    {{ $t->currencySymbol }} {{ number_format($t->amount,2) }}
+                                                </span>
+                                            </div>
+                                            @else
+                                            <div
+                                                class="text-red-700 inline-flex font-semibold hover:text-red-500 hover:underline">
+                                                @include('icons.down-arrow')
+                                                <span class="">
+                                                    {{ $t->currencySymbol }}
+                                                    {{ number_format($t->amount,2) }}
+                                                </span>
+                                            </div>
+                                            @endif
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         @if ($t->source == 'bank')
@@ -59,25 +74,6 @@
                                         @else
                                         @include('icons.caja')
                                         @endif
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        @if ($t->type == 'in')
-                                        <div class="text-green-600 inline-flex">
-                                            @include('icons.up-arrow')
-                                            <span class="">
-                                                {{ $t->currencySymbol }} {{ number_format($t->amount,2) }}
-                                            </span>
-                                        </div>
-                                        @else
-                                        <div class="text-red-600 inline-flex">
-                                            @include('icons.down-arrow')
-                                            <span class="">
-                                                {{ $t->currencySymbol }}
-                                                {{ number_format($t->amount,2) }}
-                                            </span>
-                                        </div>
-                                        @endif
-
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $t->invoice }}
@@ -94,7 +90,13 @@
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium inline-flex items-center">
                                         <div class="flex justify-end">
-                                            <x-transaction-actions :t="$t" />
+                                            {{-- <x-transaction-actions :t="$t" /> --}}
+                                            @if (auth()->user()->isAdmin() || auth()->user()->isManager())
+                                            <a href="{{ route('transaction.edit', $t) }}"
+                                                class="text-gray-400 hover:text-gray-600">
+                                                @include('icons.edit')
+                                            </a>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
