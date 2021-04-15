@@ -53,7 +53,7 @@
                                                 class="text-green-700 font-semibold inline-flex hover:text-green-500 hover:underline">
                                                 @include('icons.up-arrow', ['style' => 'h-5 w-5'])
                                                 <span class="">
-                                                    {{ $t->currencySymbol }} {{ number_format($t->amount,2) }}
+                                                    {{ $t->currencySymbol }} {{ number_format($t->credit,2) }}
                                                 </span>
                                             </div>
                                             @else
@@ -62,7 +62,7 @@
                                                 @include('icons.down-arrow')
                                                 <span class="">
                                                     {{ $t->currencySymbol }}
-                                                    {{ number_format($t->amount,2) }}
+                                                    {{ number_format($t->debit,2) }}
                                                 </span>
                                             </div>
                                             @endif

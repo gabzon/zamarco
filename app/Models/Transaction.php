@@ -14,8 +14,9 @@ class Transaction extends Model
         'date',
         'contact_id',
         'type_of_client',
-        'description',
-        'amount',
+        'description',        
+        'credit',
+        'debit',
         'exchange',
         'currency',
         'bolivares',
@@ -116,7 +117,7 @@ class Transaction extends Model
 
     public static function getTotalAmount($currency = null, $type = null, $company = null, $days = null)
     {
-        return Transaction::currency($currency)->byType($type)->byCompany($company)->lastDays($days)->sum('amount');
+        return Transaction::currency($currency)->byType($type)->byCompany($company)->lastDays($days)->sum( $type == 'in' ? 'credit':'debit');
     }
 
     public static function getTransactions($year, $month, $currency, $type)

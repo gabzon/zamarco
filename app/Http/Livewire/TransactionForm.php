@@ -13,6 +13,8 @@ class TransactionForm extends Component
     public $type;
     public $date;
     public $amount;
+    public $credit;
+    public $debit;
     public $exchange;
     public $currency = '';
     public $description;
@@ -33,7 +35,7 @@ class TransactionForm extends Component
         $this->validate([
             'type'          => 'required',            
             'date'          => 'date',
-            'amount'        => 'required|numeric|min:0',
+            'amount'        => 'required|numeric|min:0',            
             'exchange'      => 'required|numeric|min:0',
             'currency'      => 'required',
             'company'       => 'required',     
@@ -50,7 +52,8 @@ class TransactionForm extends Component
             'contact'       => $this->contact,
             'contact_id'    => $this->contact_id,
             'description'   => $this->description,
-            'amount'        => $this->amount,
+            'credit'        => $this->type == 'in'  ? $this->amount : 0,
+            'debit'         => $this->type == 'out' ? $this->amount : 0,
             'exchange'      => $this->exchange,
             'currency'      => $this->currency,
             'invoice'       => $this->invoice,
@@ -109,7 +112,8 @@ class TransactionForm extends Component
             'contact'       => $this->contact,
             'contact_id'    => $this->contact_id,
             'description'   => $this->description,
-            'amount'        => $this->amount,
+            'credit'        => $this->type == 'in'  ? $this->amount : 0,
+            'debit'         => $this->type == 'out' ? $this->amount : 0,
             'exchange'      => $this->exchange,
             'currency'      => $this->currency,
             'invoice'       => $this->invoice,
@@ -147,7 +151,8 @@ class TransactionForm extends Component
             $this->contact      = $transaction->contact;
             $this->contact_id   = $transaction->contact_id;
             $this->description  = $transaction->description;
-            $this->amount       = $transaction->amount;
+            $this->credit       = $transaction->credit;
+            $this->debit       = $transaction->debit;
             $this->exchange     = $transaction->exchange;
             $this->currency     = $transaction->currency;
             $this->invoice      = $transaction->invoice;

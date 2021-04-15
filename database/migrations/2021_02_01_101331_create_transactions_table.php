@@ -18,7 +18,8 @@ class CreateTransactionsTable extends Migration
             $table->date('date')->nullable();            
             $table->string('contact_id')->nullable();
             $table->text('description')->nullable();            
-            $table->decimal('amount', 25, 2)->nullable();
+            $table->decimal('credit', 25, 2)->nullable();
+            $table->decimal('debit', 25, 2)->nullable();
             $table->decimal('exchange', 25, 2)->nullable();
             $table->decimal('bolivares', 25, 2)->nullable();
             $table->string('currency')->nullable();
