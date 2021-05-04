@@ -291,9 +291,8 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
-                                @if ($type == 'in' & $source == 'bank')
                                 <label for="destinatary" class="block text-sm font-medium text-gray-700">
-                                    Destinatario/Receptor
+                                    Destinatario/Receptor/Responsable
                                 </label>
                                 <input type="text" wire:model="destinatary" @if ($type=='in' ) list="socios" @endif
                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
@@ -301,7 +300,6 @@
                                     <option value="Juan Zambrano">
                                     <option value="Reinaldo Martinez">
                                 </datalist>
-                                @endif
                             </div>
                         </div>
                     </div>
