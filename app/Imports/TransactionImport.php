@@ -23,17 +23,14 @@ class TransactionImport implements ToModel, WithHeadingRow
             'date'          => Carbon::parse($row['date'])->format('Y-m-d H:i:s') ?? now(),
             'invoice'       => $row['invoice'],
             'description'   => $row['description'],
-            'credit'        => $row['credit'],            
-            'debit'         => $row['debit'],            
-            'exchange'      => $row['exchange'] ?? 0,   
+            'credit'        => $row['credit'],
+            'debit'         => $row['debit'],
+            'exchange'      => $row['exchange'] ?? 0,
             'currency'      => $row['currency'],
-            'type'          => $row['type'],   
-            'source'        => $row['source'] ?? 'cash',   
-            'user_id'       => auth()->user()->id,               
-            'company_id'    => $row['company'] ?? $this->cid,               
+            'type'          => $row['type'] ? strtolower($row['type']) : 'in',
+            'source'        => $row['source'] ? strtolower($row['source']) :'cash',
+            'user_id'       => auth()->user()->id,
+            'company_id'    => $row['company'] ?? $this->cid,
         ]);
     }
 }
-
-
-

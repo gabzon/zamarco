@@ -30,9 +30,9 @@ class TransactionDatagrid extends Component
     public function render()
     {
         if ($this->company == null) {            
-            $transactions = Transaction::orderBy('date', 'desc')->paginate(10);    
+            $transactions = Transaction::orderBy('date', 'desc')->paginate(15);
         } else {
-            $transactions = Transaction::orderBy('date', 'desc')->where('company_id', $this->company)->paginate(10);            
+            $transactions = Transaction::orderBy('date', 'desc')->where('company_id', $this->company)->paginate(15);
         }
 
         return view('livewire.transaction-datagrid', ['transactions' => $transactions]);

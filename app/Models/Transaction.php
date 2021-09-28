@@ -111,6 +111,15 @@ class Transaction extends Model
         return $query;
     }
 
+    public function scopeBySource($query, $source)
+    {
+        if (!empty($source)) {
+            return $query->where('source', $source);
+        }
+        return $query;
+    }
+
+
     public function scopeByContactID($query, $contactID)
     {
         if (!empty($contactID)) {

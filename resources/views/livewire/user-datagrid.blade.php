@@ -53,21 +53,26 @@
                                         {{ $user->email }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        @foreach ($user->worksAt as $company)
-                                        {{ $company->name }},
-                                        @endforeach
+                                        <ul>
+                                            @foreach ($user->worksAt as $company)
+                                            <li>
+                                                <a href="{{ route('company.show', $company)}}">
+                                                    {{ $company->name }}
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                        </ul>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $user->role }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ $user->created_at }}
+                                        {{ $user->created_at->format('Y-m-d') }}
                                     </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium inline-flex items-center">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium inline-flex">
                                         <div class="flex justify-end">
                                             <a href="{{ route('user.edit', $user) }}"
-                                                class="text-gray-400 hover:text-gray-500">@include('icons.edit')</a>
+                                                class="text-gray-400 hover:text-gray-500 place-self-start">@include('icons.edit')</a>
                                         </div>
                                     </td>
                                 </tr>

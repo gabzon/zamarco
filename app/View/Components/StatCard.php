@@ -20,21 +20,7 @@ class StatCard extends Component
      */
     public function __construct($title, $porcentage, $currency, $income, $expenses, $total)
     {
-        switch ($title) {
-            case '30':
-                $this->title = 'Ultimos 30 dias';
-                break;
-            case '15':                
-                $this->title = 'Ultimos 15 dias';
-                break;
-            case '7':
-                $this->title = 'Ultimos 7 dias';
-                break;
-            default:
-                $this->title = 'Hoy';
-                break;
-        }
-        
+        $this->title = $title;
         $this->porcentage = $porcentage;        
         $this->currency = $currency;
         $this->income = $income;

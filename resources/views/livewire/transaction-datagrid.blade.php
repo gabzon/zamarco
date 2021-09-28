@@ -43,10 +43,10 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse ($transactions as $t)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                         {{ $t->date->format('Y-m-d') }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                         <a href="{{ route('transaction.show', $t) }}">
                                             @if ($t->type == 'in')
                                             <div
@@ -68,27 +68,27 @@
                                             @endif
                                         </a>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                         @if ($t->source == 'bank')
                                         @include('icons.bank')
                                         @else
                                         @include('icons.caja')
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                         {{ $t->invoice }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                         {{ $t->description }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                         {{ $t->company->name }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                         {{ $t->author->name }}
                                     </td>
                                     <td
-                                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium inline-flex items-center">
+                                        class="px-6 py-2 whitespace-nowrap text-right text-sm font-medium inline-flex items-center">
                                         <div class="flex justify-end">
                                             {{-- <x-transaction-actions :t="$t" /> --}}
                                             @if (auth()->user()->isAdmin() || auth()->user()->isManager())
