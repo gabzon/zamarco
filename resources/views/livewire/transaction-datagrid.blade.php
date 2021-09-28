@@ -44,7 +44,7 @@
                                 @forelse ($transactions as $t)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ \Carbon\Carbon::parse($t->date)->format('d-m-Y') }}
+                                        {{ $t->date->format('Y-m-d') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         <a href="{{ route('transaction.show', $t) }}">

@@ -1,55 +1,28 @@
-<div x-data="{ tab: 'usd' }">
-
-    <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
-        <h3 class="text-lg leading-6 font-medium text-gray-900">
-            Reporte del mes
-        </h3>
-        <div class="mt-3 sm:mt-0 sm:ml-4">
-            <div class="block max-w-xs">
-                <nav class="relative z-0 rounded-lg shadow flex divide-x divide-gray-200" aria-label="Tabs">
-                    <!-- Current: "text-gray-900", Default: "text-gray-500 hover:text-gray-700" -->
-                    <button :class="{ 'active': tab === 'usd' }" @click="tab = 'usd'"
-                        class="text-gray-900 rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-2 px-3 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
-                        aria-current="page">
-                        <span>USD</span>
-                        <span aria-hidden="true" :class="{ 'bg-indigo-500': tab === 'usd' }"
-                            class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"></span>
-                    </button>
-
-                    <button :class="{ 'active': tab === 'eur' }" @click="tab = 'eur'"
-                        class="text-gray-500 hover:text-gray-700 rounded-r-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-2 px-3 text-sm font-medium text-center hover:bg-gray-50 focus:z-10">
-                        <span>EUR</span>
-                        <span aria-hidden="true" :class="{ 'bg-indigo-500': tab === 'eur' }"
-                            class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"></span>
-                    </button>
-
-                </nav>
-            </div>
-        </div>
-    </div>
-    <br>
+<div>
+    {{-- <x-stat-card title="30" porcentage="2.5" currency="usd" income="{{ $totalCashUSD }}"
+    expenses="{{ $usd30Out }}"
+    total="{{ $usd30Total }}" /> --}}
     <dl x-show="tab === 'usd'"
         class="mt-1 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow divide-y divide-gray-200 md:grid-cols-4 md:divide-y-0 md:divide-x">
 
-        <x-stat-card title="30" porcentage="2.5" currency="usd" income="{{ $usd30In }}" expenses="{{ $usd30Out }}"
-            total="{{ $usd30Total }}" />
 
-        <x-stat-card title="15" porcentage="2.5" currency="usd" income="{{ $usd15In }}" expenses="{{ $usd15Out }}"
-            total="{{ $usd15Total }}" />
+
+        {{-- <x-stat-card title="15" porcentage="2.5" currency="usd" income="{{ $usd15In }}" expenses="{{ $usd15Out }}"
+        total="{{ $usd15Total }}" />
 
         <x-stat-card title="7" porcentage="2.5" currency="usd" income="{{ $usd7In }}" expenses="{{ $usd7Out }}"
             total="{{ $usd7Total }}" />
 
         <x-stat-card title="1" porcentage="2.5" currency="usd" income="{{ $usd7In }}" expenses="{{ $usd7Out }}"
-            total="{{ $usd7Total }}" />
+            total="{{ $usd7Total }}" /> --}}
     </dl>
 
 
     <dl x-show="tab === 'eur'"
         class="mt-1 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow divide-y divide-gray-200 md:grid-cols-4 md:divide-y-0 md:divide-x">
 
-        <x-stat-card title="30" porcentage="2.5" currency="eur" income="{{ $eur30In }}" expenses="{{ $eur30Out }}"
-            total="{{ $eur30Total }}" />
+        {{-- <x-stat-card title="30" porcentage="2.5" currency="eur" income="{{ $eur30In }}" expenses="{{ $eur30Out }}"
+        total="{{ $eur30Total }}" />
 
         <x-stat-card title="15" porcentage="2.5" currency="eur" income="{{ $eur15In }}" expenses="{{ $eur15Out }}"
             total="{{ $eur15Total }}" />
@@ -58,8 +31,172 @@
             total="{{ $eur7Total }}" />
 
         <x-stat-card title="1" porcentage="2.5" currency="eur" income="{{ $eurTodayIn }}" expenses="{{ $eurTodayOut }}"
-            total="{{ $eurTodayTotal }}" />
+            total="{{ $eurTodayTotal }}" /> --}}
     </dl>
+    {{ $totalCashUSD }}
+    <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        @foreach ($transactionsByMonths as $item => $key)
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @if ($loop->first)
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Year
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Enero
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Febrero
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Marzo
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Abril
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Mayo
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Junio
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Julio
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Agosto
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Septiembre
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Octobre
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Noviembre
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Diciembre
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Total
+                                    </th>
+                                </tr>
+                            </thead>
+                            @endif
+                            <tr>
+                                <td
+                                    class="bg-gray-50 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {{ $item }}
+                                </td>
+                                @php
+                                $table = $key->toArray();
+                                @endphp
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('1', $table))
+                                    {{ $key['1'][0] - $key['1'][1] }}
+                                    @endif
+                                </td>
 
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('2',$table) )
+                                    {{ $key['2'][0] - $key['2'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('3',$table) )
+                                    {{ $key['3'][0] - $key['3'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('4',$table) )
+                                    {{ $key['4'][0] - $key['4'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('5',$table) )
+                                    {{ $key['5'][0] - $key['5'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('6',$table) )
+                                    {{ $key['6'][0] - $key['6'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('7',$table) )
+                                    {{ $key['7'][0] - $key['7'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('8',$table) )
+                                    {{ $key['8'][0] - $key['8'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('9',$table) )
+                                    {{ $key['9'][0] - $key['9'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('10',$table) )
+                                    {{ $key['10'][0] - $key['10'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('11',$table) )
+                                    {{ $key['11'][0] - $key['11'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+                                    @if (array_key_exists('12',$table) )
+                                    {{ $key['12'][0] - $key['12'][1] }}
+                                    @endif
+                                </td>
+
+                                <td class="p-2 whitespace-nowrap text-xs text-gray-500">
+
+                                </td>
+                            </tr>
+                        </tbody>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
+
+{{-- {{ DateTime::createFromFormat('!m', $month)->format('F') }} --}}
+
+{{-- {{   }} --}}

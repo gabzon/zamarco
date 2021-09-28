@@ -34,9 +34,9 @@
                         @if ($transaction->type == 'in')
                         <b class="text-green-700 inline-flex items-center">
                             @include('icons.in')
-                            {{ $transaction->amount }}
+                            {{ $transaction->credit }}
                             <span class="uppercase ml-1">
-                                @if ($transaction->currency == 'usd')
+                                @if (strtoupper($transaction->currency) == 'USD')
                                 @include('icons.dollar')
                                 @else
                                 @include('icons.euro')
@@ -46,9 +46,9 @@
                         @else
                         <b class="text-red-700 inline-flex items-center">
                             @include('icons.out')
-                            {{ $transaction->amount }}
+                            {{ $transaction->debit }}
                             <span class="ml-1">
-                                @if ($transaction->currency == 'usd')
+                                @if ($transaction->currency == 'USD')
                                 @include('icons.dollar')
                                 @else
                                 @include('icons.euro')

@@ -60,17 +60,8 @@
                         <div class="grid grid-cols-6 gap-6 mt-6">
 
                             <div class="col-span-6 sm:col-span-2">
-                                <label for="date" class="block text-sm font-medium text-gray-700">Fecha</label>
-                                <input type="date" wire:model="date"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('date') border-red-600 @enderror">
-                                <p class="mt-1 text-sm text-gray-500">
-                                    Formato aaaa-mm-dd
-                                </p>
-                                @error('date')
-                                <span class="text-sm text-red-600"> {{$message }}</span>
-                                @enderror
+                                <x-form.date-input name="date" label="Fecha" />
                             </div>
-
                             <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                 <label for="amount" class="block text-sm font-medium text-gray-700">Monto</label>
                                 <input type="number" wire:model="amount" step=".01"

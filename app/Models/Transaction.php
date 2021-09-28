@@ -28,6 +28,10 @@ class Transaction extends Model
         'user_id',
         'company_id',
     ];
+    
+    protected $casts = [
+        'date' => 'date',        
+    ];
 
     public function getCurrencySymbolAttribute()
     {

@@ -9,24 +9,28 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class TransactionImport implements ToModel, WithHeadingRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+    public $cid;
+
+    public function __construct($cid = null)
+    {
+        $this->cid = $cid;
+    }    
+
     public function model(array $row)
     {
         // dd($row);
         return new Transaction([            
-            'date'          => Carbon::parse($row['fecha'])->format('Y-m-d H:i:s') ?? now(),
-            'invoice'       => $row['servicio'],
-            'description'   => $row['descripcion'],
-            'amount'        => $row['amount'],            
-            'exchange'      => $row['cambio'] ?? 1,   
+            'date'          => Carbon::parse($row['date'])->format('Y-m-d H:i:s') ?? now(),
+            'invoice'       => $row['invoice'],
+            'description'   => $row['description'],
+            'credit'        => $row['credit'],            
+            'debit'         => $row['debit'],            
+            'exchange'      => $row['exchange'] ?? 0,   
             'currency'      => $row['currency'],
-            'type'          => $row['tipo'],   
+            'type'          => $row['type'],   
+            'source'        => $row['source'] ?? 'cash',   
             'user_id'       => auth()->user()->id,               
-            'company_id'    => $row['company'] ?? 1,               
+            'company_id'    => $row['company'] ?? $this->cid,               
         ]);
     }
 }

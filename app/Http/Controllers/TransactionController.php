@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransactionExport;
 use App\Imports\TransactionImport;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -93,9 +94,17 @@ class TransactionController extends Controller
     
     public function load(Request $request)
     {
-        // dd(request()->all());
-        Excel::import(new TransactionImport, $request->file);
+        $request->validate([
+            'company' => 'required|integer',        
+        ]);
+
+        Excel::import(new TransactionImport($request->company), $request->file);
         
         return redirect('dashboard')->with('success', 'Import successful');        
+    }
+
+    public function export(Request $request) 
+    {                
+        return Excel::download(new TransactionExport($request->cid), 'transaction.csv');        
     }
 }

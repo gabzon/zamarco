@@ -1,4 +1,7 @@
 <x-app-layout>
+    <x-slot name="head">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+    </x-slot>
 
     <x-slot name="header">
         <div class="md:flex md:items-center md:justify-between">
@@ -26,4 +29,10 @@
         </div>
     </div>
 
+    @push('modals')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+    @endpush
 </x-app-layout>

@@ -58,6 +58,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('transaction/import', [TransactionController::class, 'import'])->name('transaction.import');
     Route::post('transaction/load', [TransactionController::class, 'load'])->name('transaction.load');
+    Route::get('transaction/export/', [TransactionController::class,'export'])->name('transaction.export');
     Route::resource('company', CompanyController::class);
     Route::resource('transaction', TransactionController::class);
     Route::resource('user', UserController::class);    
