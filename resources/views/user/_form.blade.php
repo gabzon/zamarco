@@ -53,4 +53,10 @@
             @endforeach
         </select>
     </div>
+
+    <div class="col-span-6">
+        <livewire:user-reset-password :user="$user" />
+
+    </div>
+
 </div>
