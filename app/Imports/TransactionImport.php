@@ -25,7 +25,8 @@ class TransactionImport implements ToModel, WithHeadingRow
             'description'   => $row['description'],
             'credit'        => $row['credit'],
             'debit'         => abs($row['debit']),
-            'exchange'      => $row['exchange'] ?? 0,
+            'bolivares'     => $this->amount($row['bolivares']),
+            'exchange'      => $this->amount($row['exchange']),
             'currency'      => $row['currency'],
             'type'          => $row['type'] ? strtolower($row['type']) : 'in',
             'source'        => $this->source(strtolower($row['source'])),
@@ -46,5 +47,14 @@ class TransactionImport implements ToModel, WithHeadingRow
         } else {
             return 'cash';
         }                
+    }
+    
+    public function amount($amount)
+    {
+        if ($amount === '') {            
+            return $amount;
+        } else {
+            return 0.00;
+        }        
     }
 }
