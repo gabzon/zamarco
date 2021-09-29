@@ -24,13 +24,27 @@ class TransactionImport implements ToModel, WithHeadingRow
             'invoice'       => $row['invoice'],
             'description'   => $row['description'],
             'credit'        => $row['credit'],
-            'debit'         => $row['debit'],
+            'debit'         => abs($row['debit']),
             'exchange'      => $row['exchange'] ?? 0,
             'currency'      => $row['currency'],
             'type'          => $row['type'] ? strtolower($row['type']) : 'in',
-            'source'        => $row['source'] ? strtolower($row['source']) :'cash',
+            'source'        => $this->source(strtolower($row['source'])),
             'user_id'       => auth()->user()->id,
+            'destinatary'   => $row['destinatary'] ?? '',
             'company_id'    => $row['company'] ?? $this->cid,
         ]);
+    }
+
+    public function source($source)
+    {
+        if ($source) {
+            if ($source == 'caja') {
+                return 'cash';
+            } elseif (($source == 'banco') || ($source == 'bank')) {
+                return 'bank';
+            }
+        } else {
+            return 'cash';
+        }                
     }
 }
