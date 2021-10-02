@@ -78,13 +78,13 @@
                                     <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                         {{ $t->invoice }}
                                     </td>
-                                    <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-6 py-2 text-sm text-gray-500">
                                         {{ $t->description }}
                                     </td>
                                     <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                         {{ $t->company->name }}
                                     </td>
-                                    <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-6 py-2 text-sm text-gray-500">
                                         {{ $t->author->name }}
                                     </td>
                                     <td
