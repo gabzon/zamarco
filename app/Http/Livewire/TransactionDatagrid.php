@@ -29,8 +29,11 @@ class TransactionDatagrid extends Component
 
     public function render()
     {
+        
         if ($this->company == null) {            
-            $transactions = Transaction::orderBy('date', 'desc')->paginate(15);
+            $empresas = auth()->user()->worksAt()->pluck('company_id')->toArray();            
+            $transactions = Transaction::whereIn('company_id',$empresas)->orderBy('date', 'desc')->paginate(15);
+            // $transactions = Transaction::orderBy('date', 'desc')->paginate(15);
         } else {
             $transactions = Transaction::orderBy('date', 'desc')->where('company_id', $this->company)->paginate(15);
         }
