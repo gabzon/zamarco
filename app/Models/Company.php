@@ -9,6 +9,16 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'address',
+        'city',
+        'state',
+        'manager',
+        'usd',
+        'eur',
+    ];
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class)->times;

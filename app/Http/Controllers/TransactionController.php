@@ -84,7 +84,15 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $this->authorize('delete', $transaction);
+        
+        $company = $transaction->company_id;
+
+        $transaction->delete();
+
+        session()->flash('success','Transaccion eliminada con exito!');
+
+        return redirect(route('company.show', $company));
     }
 
     public function import()
@@ -105,6 +113,6 @@ class TransactionController extends Controller
 
     public function export(Request $request) 
     {                
-        return Excel::download(new TransactionExport($request->cid), 'transaction.csv');        
+        return Excel::download(new TransactionExport($request->cid), 'transaction.xls');        
     }
 }

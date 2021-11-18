@@ -11,6 +11,10 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
+
+
+
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -62,7 +66,7 @@ class User extends Authenticatable
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class)->withTimestamps();;
+        return $this->hasMany(Transaction::class);
     }
 
     public function worksAt()
@@ -89,4 +93,11 @@ class User extends Authenticatable
     {
         return $this->role == 'supervisor';
     }
+
+    public function hasRights()
+    {
+        return $this->isAdmin() || $this->isManager();
+    }
+
+
 }
