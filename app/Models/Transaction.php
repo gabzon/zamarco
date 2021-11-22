@@ -42,7 +42,7 @@ class Transaction extends Model
      */
     protected static function booted()
     {
-        if (auth()->check()) {            
+        if (auth()->check() && auth()->user()->isEditor()) {            
             static::addGlobalScope('by_user', function (Builder $builder) {
                 $builder->where('user_id', '=', auth()->id());
             });
