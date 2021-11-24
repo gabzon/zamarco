@@ -37,7 +37,14 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        Company::create([
+            'name' => $request->name,
+            'city' => $request->city,
+        ]);
+
+        session()->flash('success', 'Empresa creada con exito!');
+        return redirect()->route('companies.index');
     }
 
     /**
